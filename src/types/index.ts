@@ -1,21 +1,21 @@
-interface dataAccess {
+export interface dataAccess {
   email: string;
   id: number;
   name: string;
   token: string;
 }
 
-interface dataLogin {
+export interface dataLogin {
   email: string;
   password: string;
 }
 
-interface dataAPIAccess {
+export interface dataAPIAccess {
   access_token: string;
   user: dataUserAPIAccess;
 }
 
-interface dataUserAPIAccess {
+export interface dataUserAPIAccess {
   email: string;
   name: string;
   id: number;
@@ -24,4 +24,10 @@ interface dataUserAPIAccess {
   updated_at: string | null;
 }
 
-export { dataAccess, dataLogin, dataAPIAccess };
+export interface dataItems {
+  id: number;
+  name: string;
+  quantity: string;
+  status: string;
+}
+
