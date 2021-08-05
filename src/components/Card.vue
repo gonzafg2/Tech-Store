@@ -11,13 +11,18 @@
       <v-divider class="mx-4"></v-divider>
 
       <v-card-text class="product__text">
-        In stock: <span>{{ product.quantity}}</span>
+        In stock: <span>{{ product.quantity }}</span>
       </v-card-text>
-      
+
       <v-divider class="mx-4"></v-divider>
 
       <v-card-actions>
-        <v-btn color="deep-purple lighten-2" text> Buy now </v-btn>
+        <v-btn
+          :to="`/products/${product.id}`"
+          color="deep-purple lighten-2"
+          text
+          >View</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-col>
@@ -39,7 +44,7 @@ export default Vue.extend({
   &__title {
     align-items: start;
     font-size: 16px;
-    letter-spacing: .035em;
+    letter-spacing: 0.035em;
     min-height: 130px;
   }
 }

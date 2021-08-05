@@ -1,11 +1,5 @@
 <template>
-  <v-app-bar
-    absolute
-    color="white"
-    dark
-    elevate-on-scroll
-  >
-
+  <v-app-bar absolute color="white" dark elevate-on-scroll>
     <v-toolbar-title>Tech Store</v-toolbar-title>
 
     <v-spacer></v-spacer>
@@ -14,12 +8,8 @@
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn icon>
-      <v-icon>mdi-heart</v-icon>
-    </v-btn>
-
-    <v-btn icon>
-      <v-icon>mdi-dots-vertical</v-icon>
+    <v-btn class="mx-2" fab dark color="teal" to="/admin">
+      <v-icon dark> mdi-format-list-bulleted-square </v-icon>
     </v-btn>
   </v-app-bar>
 </template>

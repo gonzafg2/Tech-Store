@@ -30,4 +30,13 @@ export interface dataItems {
   quantity: string;
   status: string;
 }
-
+export interface dataItemsDetails {
+  id: number;
+  name: string;
+  quantity: string;
+  status: string;
+  description: string;
+  categoryId: number;
+  priceTaxExcluded: number;
+  index: number;
+}

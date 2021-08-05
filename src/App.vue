@@ -18,6 +18,7 @@
 import Vue from "vue";
 import { mapState, mapActions } from "vuex";
 import Nav from "@/components/Nav.vue";
+import { dataItems } from "@/types";
 
 export default Vue.extend({
   name: "App",
@@ -31,19 +32,24 @@ export default Vue.extend({
   },
   computed: {
     ...mapState("access", ["token"]),
+    ...mapState("products", ["items"]),
   },
   methods: {
     ...mapActions("access", ["getToken"]),
-    ...mapActions("products", ["getItems"]),
+    ...mapActions("products", ["getItems", "getItemsDetails"]),
   },
   created() {
     this.getToken();
   },
   watch: {
-    async token(newValue) {
+    async token(newValue: string | null): Promise<void> {
       if (!newValue) return;
       await this.getItems();
       this.loading = false;
+    },
+    async items(newValue: [dataItems] | null): Promise<void> {
+      if (!newValue || !newValue.length) return;
+      await this.getItemsDetails();
     },
   },
 });
