@@ -1,17 +1,19 @@
 <template>
-  <v-app-bar absolute color="white" dark elevate-on-scroll>
-    <v-toolbar-title>Tech Store</v-toolbar-title>
+  <v-toolbar dark elevate-on-scroll>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-    <v-spacer></v-spacer>
+      <v-toolbar-title>Tech Store</v-toolbar-title>
 
-    <v-btn to="/" icon>
-      <v-icon>mdi-home</v-icon>
-    </v-btn>
+      <v-spacer></v-spacer>
 
-    <v-btn class="mx-2" fab dark color="teal" to="/admin">
-      <v-icon dark> mdi-format-list-bulleted-square </v-icon>
-    </v-btn>
-  </v-app-bar>
+      <v-btn icon to="/">
+        <v-icon>mdi-home</v-icon>
+      </v-btn>
+
+      <v-btn class="mx-2" fab dark icon to="/admin">
+        <v-icon dark> mdi-format-list-bulleted-square </v-icon>
+      </v-btn>
+    </v-toolbar>
 </template>
 
 <script lang="ts">

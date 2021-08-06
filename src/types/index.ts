@@ -40,3 +40,7 @@ export interface dataItemsDetails {
   priceTaxExcluded: number;
   index: number;
 }
+export interface dataCategories {
+  id: number;
+  name: string;
+}

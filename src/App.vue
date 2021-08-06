@@ -1,42 +1,41 @@
 <template>
-  <div id="app">
+  <v-app>
     <Nav />
-
-    <router-view />
-
-    <div class="loading" v-if="loading">
-      <v-progress-circular
-        :size="70"
-        :width="7"
-        indeterminate
-      ></v-progress-circular>
-    </div>
-  </div>
+    <v-main>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+    <Loading v-if="loading" />
+  </v-app>
 </template>
 
 <script lang="ts">
+// Libraries
 import Vue from "vue";
-import { mapState, mapActions } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
+// Components
 import Nav from "@/components/Nav.vue";
+import Loading from "@/components/Loading.vue";
+// Types
 import { dataItems } from "@/types";
 
 export default Vue.extend({
   name: "App",
-  data() {
-    return {
-      loading: true,
-    };
-  },
   components: {
     Nav,
+    Loading,
   },
   computed: {
+    ...mapState(["loading"]),
     ...mapState("access", ["token"]),
     ...mapState("products", ["items"]),
   },
   methods: {
     ...mapActions("access", ["getToken"]),
     ...mapActions("products", ["getItems", "getItemsDetails"]),
+    ...mapActions("categories", ["getCategories"]),
+    ...mapMutations(["setLoading"]),
   },
   created() {
     this.getToken();
@@ -45,7 +44,7 @@ export default Vue.extend({
     async token(newValue: string | null): Promise<void> {
       if (!newValue) return;
       await this.getItems();
-      this.loading = false;
+      await this.getCategories();
     },
     async items(newValue: [dataItems] | null): Promise<void> {
       if (!newValue || !newValue.length) return;
@@ -58,21 +57,5 @@ export default Vue.extend({
 <style lang="scss" scoped>
 #app {
   min-height: 100vh;
-}
-.loading {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 10;
-  .v-progress-circular {
-    color: purple;
-  }
 }
 </style>

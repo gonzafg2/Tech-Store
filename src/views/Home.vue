@@ -10,9 +10,11 @@
 </template>
 
 <script lang="ts">
+// Libraries
 import Vue from "vue";
-import Card from "@/components/Card.vue";
 import { mapGetters } from "vuex";
+// Components
+import Card from "@/components/Card.vue";
 
 export default Vue.extend({
   name: "Home",
@@ -27,7 +29,6 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .home {
-  padding-top: 64px;
   &__title {
     display: flex;
     justify-content: center;

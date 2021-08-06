@@ -1,5 +1,5 @@
 <template>
-  <v-col cols="3">
+  <v-col cols="12" md="4" lg="3">
     <v-card class="mx-auto my-12 product">
       <v-img
         height="250"
@@ -18,9 +18,10 @@
 
       <v-card-actions>
         <v-btn
-          :to="`/products/${product.id}`"
           color="deep-purple lighten-2"
           text
+          :loading="go"
+          @click="goProduct(product.id)"
           >View</v-btn
         >
       </v-card-actions>
@@ -29,12 +30,27 @@
 </template>
 
 <script lang="ts">
+// Libraries
 import Vue from "vue";
+import { mapState, mapMutations } from "vuex";
+// Components
 
 export default Vue.extend({
   name: "Product",
+  data() {
+    return {
+      go: false,
+    };
+  },
   props: {
     product: {},
+  },
+  methods: {
+    goProduct(id: number) {
+      this.go = true;
+      this.$router.push(`/products/${id}`);
+      this.go = false;
+    },
   },
 });
 </script>

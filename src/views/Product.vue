@@ -1,9 +1,9 @@
 <template v-if="product">
   <div class="product mt-5">
-    <h2 class="product__title">{{ product.name }}</h2>
+    <h2 class="product__title">{{ product && product.name }}</h2>
     <v-card>
       <v-img
-        :src="`https://picsum.photos/id/${product.id + 50}/1000/250`"
+        :src="`https://picsum.photos/id/${product && product.id + 50}/1000/250`"
         class="white--text align-end"
         gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
         height="250px"
@@ -29,21 +29,34 @@
 
     <h3 class="product__desc">Description:</h3>
     <p class="product__desc-text">
-      {{ product.description }}
+      {{ product && product.description }}
     </p>
 
     <h3 class="product__price">Price:</h3>
     <p class="product__price-text">
-      ${{ product.priceTaxExcluded.toLocaleString() }}
+      ${{ product && product.priceTaxExcluded.toLocaleString() }}
     </p>
 
-    <v-btn class="product__cta" rounded push color="primary" dark>Buy Now</v-btn>
+    <v-btn
+      class="product__cta"
+      rounded
+      push
+      color="primary"
+      dark
+      @click.stop="toBuy"
+      :loading="buy"
+      >Buy Now</v-btn
+    >
+    <Buy />
   </div>
 </template>
 
 <script lang="ts">
+// Libraries
 import Vue from "vue";
-import { mapGetters } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
+// Components
+import Buy from "@/components/Buy.vue";
 
 export default Vue.extend({
   name: "Product",
@@ -52,7 +65,11 @@ export default Vue.extend({
       product: null,
     };
   },
+  components: {
+    Buy,
+  },
   computed: {
+    ...mapState(["buy"]),
     id(): number {
       const id = this.$route.params.id;
       return Number(id);
@@ -60,6 +77,7 @@ export default Vue.extend({
     ...mapGetters("products", ["item"]),
   },
   methods: {
+    ...mapMutations(["toBuy"]),
     getProduct(id: number) {
       if (!id) return;
       this.product = this.item(id);
@@ -67,11 +85,6 @@ export default Vue.extend({
   },
   mounted() {
     this.getProduct(this.id);
-  },
-  watch: {
-    product(newValue, oldValue) {
-      console.log(newValue, oldValue);
-    }
   },
 });
 </script>

@@ -11,7 +11,9 @@
 </template>
 
 <script lang="ts">
+// Libraries
 import Vue from "vue";
+
 export default Vue.extend({
   name: "ProductLayout",
 });

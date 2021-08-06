@@ -49,6 +49,8 @@ const actions = {
         console.error(
           `Error de acceso a la API en acceso de items detalle: \n ${e}`
         );
+      } finally {
+        commit("setLoading", null, { root: true });
       }
     });
   },
