@@ -24,11 +24,8 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    setLoading(state): void {
-      state.loading = !state.loading;
-    },
-    setLoading2(state): void {
-      state.loading2 = !state.loading2;
+    setLoading(state, payload): void {
+      state.loading = payload;
     },
     toBuy(state, payload): void {
       state.buy = payload;

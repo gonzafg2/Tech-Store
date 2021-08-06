@@ -44,15 +44,45 @@ const actions = {
         if (!req || !req.data) return;
         const data: dataItemsDetails = req.data;
         data.index = i;
-        commit("setItemsDetails", data);
+        await commit("setItemsDetails", data);
       } catch (e) {
         console.error(
           `Error de acceso a la API en acceso de items detalle: \n ${e}`
         );
       } finally {
-        commit("setLoading", null, { root: true });
+        commit("setLoading", false, { root: true });
       }
     });
+  },
+  async deleteProduct({ rootState, state, commit }: any, payload: any) {
+    const urlBase = "https://pt.arriagada.dev/api";
+    const token = rootState.access.token;
+    const indexInItems = payload;
+
+    state.items.splice(indexInItems, 1);
+
+    console.log(state.items);
+
+    const config = {
+      mode: "no-cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + token,
+      },
+    };
+
+    // try {
+    //   const req = await axios.delete(`${urlBase}/item/${id}`, config);
+    // console.log(req);
+    //   if (req.data) {
+
+    //     commit("setDeleted", true);
+    //   }
+    // } catch (e) {
+    //   console.error(
+    //     `Error de acceso a la API en acceso de eliminar item: \n ${e}`
+    //   );
+    // }
   },
 };
 export default actions;

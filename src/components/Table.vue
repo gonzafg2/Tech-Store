@@ -13,7 +13,7 @@
         ></v-select>
       </v-col>
       <v-col cols="4">
-         <v-btn color="yellow" @click="resetFilter">Clear filter</v-btn>
+        <v-btn color="yellow" @click="resetFilter">Clear filter</v-btn>
       </v-col>
 
       <v-col cols="11">
@@ -40,7 +40,7 @@
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    color="primary"
+                    color="green"
                     dark
                     class="mb-2"
                     v-bind="attrs"
@@ -140,7 +140,7 @@
 <script>
 // Libraries
 import Vue from "vue";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 // Types
 import { dataItemsDetails } from "@/types";
 
@@ -181,9 +181,7 @@ export default Vue.extend({
       const categories = this.category;
       const items = this.items;
 
-      const fil = items.filter(
-        (item) => item.categoryId === categories.id
-      );
+      const fil = items.filter((item) => item.categoryId === categories.id);
       return fil.length > 0 ? fil : this.items;
     },
   },
@@ -196,18 +194,22 @@ export default Vue.extend({
     },
   },
   methods: {
+    initialize() {
+      this.items;
+    },
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.items.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.items.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
-    deleteItemConfirm() {
-      this.desserts.splice(this.editedIndex, 1);
+    async deleteItemConfirm() {
+      await this.deleteProduct(this.editedIndex);
+      this.items.splice(this.editedIndex, 1);
       this.closeDelete();
     },
     close() {
@@ -226,15 +228,19 @@ export default Vue.extend({
     },
     save() {
       if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
+        Object.assign(this.items[this.editedIndex], this.editedItem);
       } else {
-        this.desserts.push(this.editedItem);
+        this.items.push(this.editedItem);
       }
       this.close();
     },
     resetFilter() {
-      this.category = { id: null, name: "" }
-    }
+      this.category = { id: null, name: "" };
+    },
+    ...mapActions("products", ["deleteProduct"]),
+  },
+  mounted() {
+    this.initialize();
   },
 });
 </script>

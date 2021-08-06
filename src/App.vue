@@ -35,7 +35,6 @@ export default Vue.extend({
     ...mapActions("access", ["getToken"]),
     ...mapActions("products", ["getItems", "getItemsDetails"]),
     ...mapActions("categories", ["getCategories"]),
-    ...mapMutations(["setLoading"]),
   },
   created() {
     this.getToken();
