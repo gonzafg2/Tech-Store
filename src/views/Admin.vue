@@ -1,5 +1,6 @@
 <template>
   <div class="admin pt-5">
+    <h1 class="admin__title">Administrator</h1>
     <Table />
   </div>
 </template>
@@ -18,9 +19,14 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .admin {
-  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  &__title {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
 }
 </style>
