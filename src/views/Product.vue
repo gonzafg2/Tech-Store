@@ -68,7 +68,7 @@ export default Vue.extend({
     Buy,
   },
   computed: {
-    ...mapState(["buy"]),
+    ...mapState("general", ["buy"]),
     itemP(): any {
       const id = Number(this.$route.params.id);
       const prod = this.item(id);
@@ -78,7 +78,7 @@ export default Vue.extend({
     ...mapGetters("products", ["item"]),
   },
   methods: {
-    ...mapMutations(["toBuy"]),
+    ...mapMutations("general", ["toBuy"]),
     async getProduct(id: number) {
       if (!id) return;
       this.product = await this.item(id);

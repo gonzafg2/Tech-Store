@@ -30,7 +30,7 @@ export default Vue.extend({
     Login,
   },
   computed: {
-    ...mapState(["loading"]),
+    ...mapState("general", ["loading"]),
     ...mapState("access", ["token", "login"]),
     ...mapState("products", ["items"]),
   },

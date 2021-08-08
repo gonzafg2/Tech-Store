@@ -49,7 +49,7 @@ const actions = {
           `Error de acceso a la API en acceso de items detalle: \n ${e}`
         );
       } finally {
-        commit("setLoading", false, { root: true });
+        commit("general/setLoading", false, { root: true });
       }
     });
   },

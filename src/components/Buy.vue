@@ -109,11 +109,11 @@ export default Vue.extend({
       const id = this.$route.params.id;
       return Number(id);
     },
-    ...mapState(["buy", "buying", "bought"]),
+    ...mapState("general", ["buy", "buying", "bought"]),
   },
   methods: {
-    ...mapMutations(["toBuy", "setBought"]),
-    ...mapActions(["toBuyNow"]),
+    ...mapMutations("general", ["toBuy", "setBought"]),
+    ...mapActions("general", ["toBuyNow"]),
     buyNow(): void {
       const name = this.name;
       const email = this.email;
