@@ -36,14 +36,13 @@ const actions = {
     };
     if (!items) return;
 
-    const itemsAll = items.map(async (item: dataItems, i: number) => {
+    items.forEach(async (item: dataItems) => {
       if (!item || !item.id) return;
 
       try {
         const req = await axios.get(`${urlBase}/item/${item.id}`, config);
         if (!req || !req.data) return;
         const data: dataItemsDetails = req.data;
-        data.index = i;
         await commit("setItemsDetails", data);
       } catch (e) {
         console.error(
@@ -59,9 +58,7 @@ const actions = {
     const token = rootState.access.token;
     const indexInItems = payload;
 
-    state.items.splice(indexInItems, 1);
-
-    console.log(state.items);
+    state.itemsAll.splice(indexInItems, 1);
 
     const config = {
       mode: "no-cors",

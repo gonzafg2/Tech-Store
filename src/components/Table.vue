@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-container>
     <v-row justify="center" align="center" class="mt-5">
       <v-col cols="6">
         <v-select
@@ -32,11 +32,14 @@
           :items="filter"
           :search="search"
           sort-by="id"
-          class="elevation-1"
+          class="elevation-5"
+          v-if="itemsAll"
         >
           <template v-slot:top>
             <v-toolbar flat>
+
               <v-spacer></v-spacer>
+
               <v-dialog v-model="dialog" max-width="500px">
                 <template v-slot:activator="{ on, attrs }">
                   <v-btn
@@ -49,6 +52,7 @@
                     New Product
                   </v-btn>
                 </template>
+
                 <v-card>
                   <v-card-title>
                     <span class="text-h5">{{ formTitle }}</span>
@@ -102,6 +106,7 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+
               <v-dialog v-model="dialogDelete" max-width="500px">
                 <v-card>
                   <v-card-title class="text-h5"
@@ -120,6 +125,7 @@
                 </v-card>
               </v-dialog>
             </v-toolbar>
+
           </template>
           <!-- eslint-disable-next-line -->
           <template v-slot:item.actions="{ item }">
@@ -129,12 +135,12 @@
             <v-icon color="red" @click="deleteItem(item)"> mdi-delete </v-icon>
           </template>
           <template v-slot:no-data>
-            <v-btn color="primary" @click="initialize"> Reset </v-btn>
+            <p class="mt-4">No available data</p>
           </template>
         </v-data-table>
       </v-col>
     </v-row>
-  </v-card>
+  </v-container>
 </template>
 
 <script>
@@ -176,13 +182,14 @@ export default Vue.extend({
       return "Edit Product";
     },
     ...mapState("categories", ["categories"]),
-    ...mapState("products", ["items", "headers"]),
+    ...mapState("products", ["itemsAll", "headers"]),
     filter() {
       const categories = this.category;
-      const items = this.items;
+      const items = this.itemsAll;
+      if(!categories.id) return items;
 
       const fil = items.filter((item) => item.categoryId === categories.id);
-      return fil.length > 0 ? fil : this.items;
+      return fil.length > 0 ? fil : [];
     },
   },
   watch: {
@@ -194,9 +201,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    initialize() {
-      this.items;
-    },
     editItem(item) {
       this.editedIndex = this.items.indexOf(item);
       this.editedItem = Object.assign({}, item);
@@ -238,9 +242,6 @@ export default Vue.extend({
       this.category = { id: null, name: "" };
     },
     ...mapActions("products", ["deleteProduct"]),
-  },
-  mounted() {
-    this.initialize();
   },
 });
 </script>

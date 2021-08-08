@@ -1,5 +1,6 @@
 const state = {
   items: [],
+  itemsAll: [],
   headers: [
     {
       text: "ID",
@@ -13,12 +14,12 @@ const state = {
       sortable: true,
       value: "name",
     },
-    {
-      text: "Description",
-      align: "center",
-      sortable: true,
-      value: "description",
-    },
+    // {
+    //   text: "Description",
+    //   align: "center",
+    //   sortable: true,
+    //   value: "description",
+    // },
     {
       text: "Qty",
       align: "center",

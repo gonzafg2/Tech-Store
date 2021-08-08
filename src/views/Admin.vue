@@ -1,5 +1,5 @@
 <template>
-  <div class="admin pt-5">
+  <div class="admin py-5 mb-10">
     <h1 class="admin__title">Administrator</h1>
     <Table />
   </div>

@@ -40,7 +40,7 @@ export default new Vuex.Store({
     async toBuyNow({ rootState, commit }: any, payload: any): Promise<void> {
       const urlBase = "https://pt.arriagada.dev/api";
       const token = rootState.access.token;
-      const items = rootState.products.items;
+      const items = rootState.products.itemsAll;
       const item = items.find((item: dataItemsDetails, i: number) => {
         item.index = i;
         return item.id === payload.id;

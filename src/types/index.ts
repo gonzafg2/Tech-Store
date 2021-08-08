@@ -38,7 +38,7 @@ export interface dataItemsDetails {
   description: string;
   categoryId: number;
   priceTaxExcluded: number;
-  index: number;
+  index?: number;
 }
 export interface dataCategories {
   id: number;

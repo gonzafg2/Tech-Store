@@ -8,17 +8,16 @@ const mutations = {
   setItemsDetails(state: any, payload: dataItemsDetails): void {
     if (!state.items || !payload) return;
 
-    const propToAdd = {
+    const item = {
+      id: payload.id,
+      name: payload.name,
+      quantity: payload.quantity,
+      status: payload.status,
       description: payload.description || "",
       categoryId: Number(payload.categoryId) || null,
       priceTaxExcluded: payload.priceTaxExcluded || null,
     };
-
-    let item: dataItems = state.items.find(
-      (item: dataItems) => item.id === payload.id
-    );
-    item = { ...item, ...propToAdd };
-    state.items[payload.index] = item;
+    state.itemsAll.push(item);
   },
   setBuy(
     state: { items: { [x: string]: any } },
