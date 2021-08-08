@@ -3,6 +3,15 @@ import { dataAccess, dataLogin, dataAPIAccess } from "@/types";
 
 const actions = {
   async getToken({ commit }: any): Promise<void> {
+    // Is token saved in locastorage?
+    const dataRaw: string | null = localStorage.getItem("access");
+    if (dataRaw) {
+      const data: dataAccess = JSON.parse(dataRaw);
+      commit("setToken", data);
+      return;
+    }
+
+    // Is not:
     const urlBase = "https://pt.arriagada.dev/api";
     const email = "demo@demo.cl";
     const password = "demo";
@@ -24,14 +33,10 @@ const actions = {
         id: dataRaw.user && dataRaw.user.id,
       };
       commit("setToken", dataSave);
+      // Save too in localstorage:
+      localStorage.setItem("access", JSON.stringify(dataSave));
     } catch (e) {
       console.error(`Error de acceso a la API: \n ${e}`);
-
-      // Backup Access data:
-      const dataRaw: string | null = localStorage.getItem("access");
-      if (!dataRaw) return;
-      const data: dataAccess = JSON.parse(dataRaw);
-      commit("setToken", data);
     }
   },
 };

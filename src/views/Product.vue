@@ -1,9 +1,9 @@
-<template v-if="product">
+<template v-if="itemP">
   <div class="product mt-5">
-    <h2 class="product__title">{{ product && product.name }}</h2>
+    <h2 class="product__title">{{ itemP && itemP.name }}</h2>
     <v-card>
       <v-img
-        :src="`https://picsum.photos/id/${product && product.id + 50}/1000/250`"
+        :src="`https://picsum.photos/id/${itemP && itemP.id + 50}/1000/250`"
         class="white--text align-end"
         gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
         height="250px"
@@ -29,12 +29,12 @@
 
     <h3 class="product__desc">Description:</h3>
     <p class="product__desc-text">
-      {{ product && product.description }}
+      {{ itemP && itemP.description }}
     </p>
 
     <h3 class="product__price">Price:</h3>
     <p class="product__price-text">
-      ${{ product && product.priceTaxExcluded.toLocaleString() }}
+      ${{ itemP && itemP.priceTaxExcluded.toLocaleString() }}
     </p>
 
     <v-btn
@@ -70,21 +70,26 @@ export default Vue.extend({
   },
   computed: {
     ...mapState(["buy"]),
-    id(): number {
-      const id = this.$route.params.id;
-      return Number(id);
+    itemP(): any {
+      const id = Number(this.$route.params.id);
+      const prod = this.item(id);
+      if (!prod) return;
+      return prod;
     },
     ...mapGetters("products", ["item"]),
   },
   methods: {
     ...mapMutations(["toBuy"]),
-    getProduct(id: number) {
+    async getProduct(id: number) {
       if (!id) return;
-      this.product = this.item(id);
+      this.product = await this.item(id);
+      console.log(this.product);
     },
   },
-  mounted() {
-    this.getProduct(this.id);
+  watch: {
+    id(newValue, oldValue) {
+      console.log(newValue, oldValue);
+    },
   },
 });
 </script>
