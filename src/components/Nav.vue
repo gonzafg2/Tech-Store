@@ -8,25 +8,21 @@
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn
-      v-if="!login"
-      class="mx-2"
-      fab
-      dark
-      icon
-      @click="setLoginModal(true)"
-    >
-      <v-icon dark> mdi-login </v-icon>
-    </v-btn>
+    <template v-if="!login">
+      <v-btn class="mx-2" fab dark icon @click="setLoginModal(true)">
+        <v-icon dark> mdi-login </v-icon>
+      </v-btn>
+    </template>
 
-    <v-btn v-else class="ml-2 mr-1" fab dark icon to="/admin">
-      <v-icon dark> mdi-account-circle </v-icon>
-    </v-btn>
-    Hi, {{ name }}!
-
-    <v-btn v-if="login" class="ml-2" fab dark icon @click="logout">
-      <v-icon dark> mdi-logout </v-icon>
-    </v-btn>
+    <template v-else>
+      <v-btn class="ml-2 mr-1" fab dark icon to="/admin">
+        <v-icon dark> mdi-account-circle </v-icon>
+      </v-btn>
+      <span class="user-name"> Hi, {{ name }}! </span>
+      <v-btn class="ml-2" fab dark icon @click="logout">
+        <v-icon dark> mdi-logout </v-icon>
+      </v-btn>
+    </template>
   </v-toolbar>
 </template>
 
@@ -46,3 +42,16 @@ export default Vue.extend({
   },
 });
 </script>
+
+.
+<style lang="scss" scoped>
+.user-name {
+  font-size: 12px;
+  @media screen and (min-width: 375px) {
+    font-size: 14px;
+  }
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+</style>
