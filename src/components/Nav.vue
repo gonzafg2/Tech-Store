@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar dark elevate-on-scroll style="max-height: 64px">
+  <v-app-bar app dark style="max-height: 64px">
     <v-toolbar-title>Tech Store</v-toolbar-title>
 
     <v-spacer></v-spacer>
@@ -23,7 +23,7 @@
         <v-icon dark> mdi-logout </v-icon>
       </v-btn>
     </template>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script lang="ts">
