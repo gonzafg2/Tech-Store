@@ -8,16 +8,26 @@
       <v-icon>mdi-home</v-icon>
     </v-btn>
 
-    <v-btn class="mx-2" fab dark icon to="/admin">
-      <v-icon dark> mdi-format-list-bulleted-square </v-icon>
+    <v-btn v-if="!login" class="mx-2" fab dark icon @click="setLoginModal(true)">
+      <v-icon dark> mdi-login </v-icon>
+    </v-btn>
+
+    <v-btn v-else class="mx-2" fab dark icon to="/admin">
+      <v-icon dark> mdi-account-circle </v-icon>
     </v-btn>
   </v-toolbar>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-
+import { mapMutations, mapState } from "vuex";
 export default Vue.extend({
   name: "Nav",
+  methods: {
+    ...mapMutations("access", ["setLoginModal"]),
+  },
+  computed: {
+    ...mapState("access", ["login"]),
+  },
 });
 </script>

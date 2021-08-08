@@ -53,12 +53,10 @@ const actions = {
       }
     });
   },
-  async deleteProduct({ rootState, state, commit }: any, payload: any) {
+  async deleteProduct({ rootState, commit }: any, payload: any) {
     const urlBase = "https://pt.arriagada.dev/api";
     const token = rootState.access.token;
-    const indexInItems = payload;
-
-    state.itemsAll.splice(indexInItems, 1);
+    const item = payload;
 
     const config = {
       mode: "no-cors",
@@ -67,19 +65,54 @@ const actions = {
         Authorization: "Bearer " + token,
       },
     };
+    commit("setDeleted", item);
 
-    // try {
-    //   const req = await axios.delete(`${urlBase}/item/${id}`, config);
-    // console.log(req);
-    //   if (req.data) {
+    try {
+      await axios.delete(`${urlBase}/item/${item.id}`, config);
+      // commit("setDeleted", item);
+    } catch (e) {
+      console.error(`Error de acceso a la API en eliminar item: \n ${e}`);
+    }
+  },
+  async createProduct({ rootState, commit }: any, payload: any) {
+    const urlBase = "https://pt.arriagada.dev/api";
+    const token = rootState.access.token;
+    const item = payload;
 
-    //     commit("setDeleted", true);
-    //   }
-    // } catch (e) {
-    //   console.error(
-    //     `Error de acceso a la API en acceso de eliminar item: \n ${e}`
-    //   );
-    // }
+    const config = {
+      mode: "no-cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + token,
+      },
+      body: item,
+    };
+
+    try {
+      await axios.post(`${urlBase}/item`, item, config);
+    } catch (e) {
+      `Error de acceso a la API en crear item: \n ${e}`;
+    }
+  },
+  async updateProduct({ rootState, commit }: any, payload: any) {
+    const urlBase = "https://pt.arriagada.dev/api";
+    const token = rootState.access.token;
+    const item = payload;
+
+    const config = {
+      mode: "no-cors",
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        Authorization: "Bearer " + token,
+      },
+      body: item,
+    };
+
+    try {
+      await axios.put(`${urlBase}/item`, item, config);
+    } catch (e) {
+      `Error de acceso a la API en actualizar item: \n ${e}`;
+    }
   },
 };
 export default actions;

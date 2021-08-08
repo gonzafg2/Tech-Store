@@ -3,5 +3,7 @@ const state = {
   id: "",
   name: "",
   token: "",
+  loginModal: false,
+  login: false
 };
 export default state;

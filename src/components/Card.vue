@@ -1,6 +1,6 @@
 <template>
   <v-col cols="12" md="4" lg="3">
-    <v-card class="mx-auto my-12 product">
+    <v-card class="mx-auto my-md-12 product">
       <v-img
         height="250"
         :src="`https://picsum.photos/id/${product.id + 50}/250`"
@@ -61,7 +61,9 @@ export default Vue.extend({
     align-items: start;
     font-size: 16px;
     letter-spacing: 0.035em;
-    min-height: 130px;
+    @media screen and (min-width: 768px) {
+      min-height: 130px;
+    }
   }
 }
 </style>

@@ -43,8 +43,7 @@
       push
       color="primary"
       dark
-      @click.stop="toBuy"
-      :loading="buy"
+      @click.stop="toBuy(true)"
       >Buy Now</v-btn
     >
     <Buy />
@@ -83,12 +82,6 @@ export default Vue.extend({
     async getProduct(id: number) {
       if (!id) return;
       this.product = await this.item(id);
-      console.log(this.product);
-    },
-  },
-  watch: {
-    id(newValue, oldValue) {
-      console.log(newValue, oldValue);
     },
   },
 });

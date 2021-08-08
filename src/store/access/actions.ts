@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "../../router";
 import { dataAccess, dataLogin, dataAPIAccess } from "@/types";
 
 const actions = {
@@ -37,6 +38,17 @@ const actions = {
       localStorage.setItem("access", JSON.stringify(dataSave));
     } catch (e) {
       console.error(`Error de acceso a la API: \n ${e}`);
+    }
+  },
+  async login({ commit }: any, payload: any): Promise<void> {
+    const user = payload;
+    const email = "demo@demo.cl";
+    const password = "demo";
+
+    if (email === user.email && password === user.password) {
+      commit("setLoginNow");
+      commit("setLoginModal", false);
+      router.push("/admin");
     }
   },
 };

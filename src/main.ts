@@ -7,6 +7,15 @@ import "@babel/polyfill";
 
 Vue.config.productionTip = false;
 
+router.beforeEach((to, from, next) => {
+  const isAuthenticated: boolean = store.state.access.login;
+
+  if (to.name === "Home") next();
+  else if (to.name === "Admin" && isAuthenticated) next();
+  else if (to.name === "Admin" && !isAuthenticated) next({ name: "Home" });
+  else if (to.name !== "Admin") next();
+});
+
 new Vue({
   router,
   store,

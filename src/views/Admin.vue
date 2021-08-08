@@ -1,6 +1,6 @@
 <template>
   <div class="admin py-5 mb-10">
-    <h1 class="admin__title">Administrator</h1>
+    <h1 class="admin__title">Administrator's Panel</h1>
     <Table />
   </div>
 </template>
@@ -27,6 +27,7 @@ export default Vue.extend({
     display: flex;
     justify-content: center;
     margin: 20px 0;
+    text-align: center;
   }
 }
 </style>

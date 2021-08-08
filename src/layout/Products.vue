@@ -21,6 +21,8 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 .product-layout {
-  margin-top: 65px;
+  @media screen and (min-width: 768px) {
+    margin-top: 65px;
+  }
 }
 </style>

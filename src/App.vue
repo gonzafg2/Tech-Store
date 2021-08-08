@@ -7,6 +7,7 @@
       </v-container>
     </v-main>
     <Loading v-if="loading" />
+    <Login />
   </v-app>
 </template>
 
@@ -17,6 +18,7 @@ import { mapState, mapMutations, mapActions } from "vuex";
 // Components
 import Nav from "@/components/Nav.vue";
 import Loading from "@/components/Loading.vue";
+import Login from "@/components/Login.vue";
 // Types
 import { dataItems } from "@/types";
 
@@ -25,10 +27,11 @@ export default Vue.extend({
   components: {
     Nav,
     Loading,
+    Login,
   },
   computed: {
     ...mapState(["loading"]),
-    ...mapState("access", ["token"]),
+    ...mapState("access", ["token", "login"]),
     ...mapState("products", ["items"]),
   },
   methods: {

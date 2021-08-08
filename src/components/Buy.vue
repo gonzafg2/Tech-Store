@@ -1,6 +1,6 @@
 <template>
   <v-row justify="center">
-    <v-dialog v-model="buyProduct" persistent max-width="600px">
+    <v-dialog v-model="buy" persistent max-width="600px">
       <v-card>
         <v-card-title>
           <span class="text-h5">We need some data:</span>
@@ -57,6 +57,35 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="buying" hide-overlay persistent width="300">
+      <v-card color="success" dark>
+        <v-card-text>
+          We process your order.
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="bought" hide-overlay persistent width="300">
+      <v-card color="success" dark>
+        <v-card-text class="buy"
+          ><v-icon large>mdi-heart</v-icon>
+          &nbsp;&nbsp;Thank you for your purchase!
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn color="white darken-1" text @click="successBuy()">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-row>
 </template>
 
@@ -76,24 +105,16 @@ export default Vue.extend({
     };
   },
   computed: {
-    ...mapState(["buy"]),
-    // buyProduct: {
-    //   get() {
-    //     return this.buy;
-    //   },
-    //   set(val) {
-    //     this.toBuy(val);
-    //   },
-    // },
     id(): number {
       const id = this.$route.params.id;
       return Number(id);
     },
+    ...mapState(["buy", "buying", "bought"]),
   },
   methods: {
-    ...mapMutations(["toBuy"]),
+    ...mapMutations(["toBuy", "setBought"]),
     ...mapActions(["toBuyNow"]),
-    buyNow() {
+    buyNow(): void {
       const name = this.name;
       const email = this.email;
       const phone = this.phone;
@@ -105,10 +126,29 @@ export default Vue.extend({
         email,
         phone,
         quantity,
-        id
+        id,
       };
       this.toBuyNow(client);
+    },
+    successBuy(): void {
+      this.setBought(false);
+      this.$router.push("/");
     },
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.buy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  font-size: 18px;
+  i {
+    margin-bottom: 10px;
+    margin-top: 30px;
+  }
+}
+</style>

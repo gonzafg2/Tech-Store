@@ -25,5 +25,13 @@ const mutations = {
   ): void {
     state.items[payload.item.index] = payload.item;
   },
+  setDeleted(state: any, payload: dataItemsDetails): void {
+    if (!state.items || !payload) return;
+
+    const index = state.itemsAll.findIndex(
+      (item: any) => item.id === payload.id
+    );
+    if (index > -1) state.itemsAll.splice(index, 1);
+  },
 };
 export default mutations;

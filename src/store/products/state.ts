@@ -46,5 +46,15 @@ const state = {
     },
     { text: "Actions", value: "actions", sortable: false },
   ],
+  status: [
+    {
+      id: "0",
+      name: "Inactive",
+    },
+    {
+      id: "1",
+      name: "Active",
+    },
+  ],
 };
 export default state;
