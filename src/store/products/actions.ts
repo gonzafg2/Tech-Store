@@ -54,6 +54,7 @@ const actions = {
     });
   },
   async deleteProduct({ rootState, commit }: any, payload: any) {
+    commit("general/setStandBy", true, { root: true });
     const urlBase = "https://pt.arriagada.dev/api";
     const token = rootState.access.token;
     const item = payload;
@@ -65,16 +66,18 @@ const actions = {
         Authorization: "Bearer " + token,
       },
     };
-    commit("setDeleted", item);
 
     try {
       await axios.delete(`${urlBase}/item/${item.id}`, config);
-      // commit("setDeleted", item);
+      commit("setDeleted", item);
     } catch (e) {
       console.error(`Error de acceso a la API en eliminar item: \n ${e}`);
+    } finally {
+      commit("general/setStandBy", false, { root: true });
     }
   },
   async createProduct({ rootState, commit }: any, payload: any) {
+    commit("general/setStandBy", true, { root: true });
     const urlBase = "https://pt.arriagada.dev/api";
     const token = rootState.access.token;
     const item = payload;
@@ -92,9 +95,12 @@ const actions = {
       await axios.post(`${urlBase}/item`, item, config);
     } catch (e) {
       `Error de acceso a la API en crear item: \n ${e}`;
+    } finally {
+      commit("general/setStandBy", false, { root: true });
     }
   },
   async updateProduct({ rootState, commit }: any, payload: any) {
+    commit("general/setStandBy", true, { root: true });
     const urlBase = "https://pt.arriagada.dev/api";
     const token = rootState.access.token;
     const item = payload;
@@ -112,6 +118,8 @@ const actions = {
       await axios.put(`${urlBase}/item`, item, config);
     } catch (e) {
       `Error de acceso a la API en actualizar item: \n ${e}`;
+    } finally {
+      commit("general/setStandBy", false, { root: true });
     }
   },
 };
