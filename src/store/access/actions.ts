@@ -40,16 +40,33 @@ const actions = {
       console.error(`Error de acceso a la API: \n ${e}`);
     }
   },
-  async login({ commit }: any, payload: any): Promise<void> {
+  async login({ commit }: any, payload: dataLogin): Promise<void> {
+    commit("setLoginModal", false);
+    commit("general/setStandBy", true, { root: true });
+
     const user = payload;
     const email = "demo@demo.cl";
     const password = "demo";
 
-    if (email === user.email && password === user.password) {
-      commit("setLoginNow");
-      commit("setLoginModal", false);
-      router.push("/admin");
-    }
+    setTimeout(() => {
+      if (email === user.email && password === user.password) {
+        commit("setLogin", true);
+        commit("general/setStandBy", false, { root: true });
+        router.push("/admin");
+        return;
+      }
+      commit("general/setStandBy", false, { root: true });
+      commit("setLoginModal", true);
+      return;
+    }, 1000);
+  },
+  async logout({ commit }: any): Promise<void> {
+    commit("general/setStandBy", true, { root: true });
+    setTimeout(() => {
+      commit("setLogin", false);
+      commit("general/setStandBy", false, { root: true });
+      if (router.currentRoute.name !== "Home") router.push("/");
+    }, 1000);
   },
 };
 export default actions;

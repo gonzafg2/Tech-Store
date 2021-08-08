@@ -10,8 +10,8 @@ const mutations = {
   setLoginModal(state: any, payload: boolean): void {
     state.loginModal = payload;
   },
-  setLoginNow(state: any): void {
-    state.login = true;
+  setLogin(state: any, payload: boolean): void {
+    state.login = payload;
   },
 };
 export default mutations;

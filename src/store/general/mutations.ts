@@ -5,8 +5,8 @@ const mutations = {
   toBuy(state: any, payload: any): void {
     state.buy = payload;
   },
-  setBuying(state: any, payload: any): void {
-    state.buying = payload;
+  setStandBy(state: any, payload: any): void {
+    state.isStandBy = payload;
   },
   setBought(state: any, payload: any): void {
     state.bought = payload;

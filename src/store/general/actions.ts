@@ -4,7 +4,7 @@ import { dataItemsDetails } from "@/types";
 const actions = {
   async toBuyNow({ rootState, commit }: any, payload: any): Promise<void> {
     // Initialize modal for procesing:
-    commit("setBuying", true);
+    commit("setStandBy", true);
     const urlBase = "https://pt.arriagada.dev/api";
     const token = rootState.access.token;
     const items = rootState.products.itemsAll;
@@ -32,7 +32,7 @@ const actions = {
       if (buy.status === 200) {
         commit("setBuyNow", dataBuy);
         commit("products/setBuy", dataBuy, { root: true });
-        commit("setBuying", false);
+        commit("setStandBy", false);
         commit("setBought", true);
       }
     } catch (e) {

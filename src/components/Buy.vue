@@ -70,6 +70,7 @@
         </v-card-text>
       </v-card>
     </v-dialog>
+    <StandBy text="We process your order." />
 
     <v-dialog v-model="bought" hide-overlay persistent width="300">
       <v-card color="success" dark>
@@ -93,6 +94,8 @@
 // Libraries
 import Vue from "vue";
 import { mapState, mapMutations, mapActions } from "vuex";
+// Components
+import StandBy from "@/components/StandBy.vue";
 
 export default Vue.extend({
   name: "Buy",
@@ -103,6 +106,9 @@ export default Vue.extend({
       phone: "",
       quantity: "",
     };
+  },
+  components: {
+    StandBy,
   },
   computed: {
     id(): number {

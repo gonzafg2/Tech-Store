@@ -1,8 +1,7 @@
 const state = {
   loading: true,
-  loading2: false,
+  isStandBy: false,
   buy: false,
-  buying: false,
   bought: false,
   client: {
     name: "",

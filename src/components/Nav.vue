@@ -12,19 +12,26 @@
       <v-icon dark> mdi-login </v-icon>
     </v-btn>
 
-    <v-btn v-else class="mx-2" fab dark icon to="/admin">
+    <v-btn v-else class="ml-2" fab dark icon to="/admin">
       <v-icon dark> mdi-account-circle </v-icon>
+    </v-btn>
+
+    <v-btn v-if="login" fab dark icon @click="logout">
+      <v-icon dark> mdi-logout </v-icon>
     </v-btn>
   </v-toolbar>
 </template>
 
 <script lang="ts">
+// Libraries
 import Vue from "vue";
-import { mapMutations, mapState } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
+
 export default Vue.extend({
   name: "Nav",
   methods: {
     ...mapMutations("access", ["setLoginModal"]),
+    ...mapActions("access", ["logout"]),
   },
   computed: {
     ...mapState("access", ["login"]),

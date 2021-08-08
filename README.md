@@ -1,4 +1,4 @@
-# tech-test
+# Tech Store
 
 ## Project setup
 ```
