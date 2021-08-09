@@ -2,6 +2,17 @@ import axios from "axios";
 import router from "../../router";
 import { dataAccess, dataLogin, dataAPIAccess } from "@/types";
 
+function setSessionCookie(name: string, value: string, days: number): void {
+  const now = new Date();
+  now.setTime(now.getTime() + days * 24 * 60 * 60 * 1000);
+  const expires = "expires=" + now.toUTCString();
+  document.cookie = name + "=" + value + ";" + expires + ";path=/";
+}
+function deleteSessionCookie(name: string): void {
+  const expires = "expires=Thu, 01 Jan 1970 00:00:00 UTC";
+  document.cookie = name + "=" + ";" + expires + ";path=/";
+}
+
 const actions = {
   async getToken({ commit }: any): Promise<void> {
     // Is token saved in locastorage?
@@ -52,6 +63,8 @@ const actions = {
       if (email === user.email && password === user.password) {
         commit("setLogin", true);
         commit("general/setStandBy", false, { root: true });
+        // Cookie de sesión:
+        setSessionCookie("isLogged", "logged", 1);
         router.push("/admin");
         return;
       }
@@ -65,6 +78,8 @@ const actions = {
     setTimeout(() => {
       commit("setLogin", false);
       commit("general/setStandBy", false, { root: true });
+      // Cookie de sesión:
+      deleteSessionCookie("isLogged");
       if (router.currentRoute.name !== "Home") router.push("/");
     }, 1000);
   },
